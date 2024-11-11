@@ -1,3 +1,10 @@
+import { Box, Typography } from "@mui/material";
+
 export default function Home() {
-  return <main>xd</main>;
+  return (
+    <Box component="main">
+      Test
+      <Typography>xd</Typography>
+    </Box>
+  );
 }
