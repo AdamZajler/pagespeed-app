@@ -1,32 +1,30 @@
-import type { Knex } from "knex";
-
-// Update with your config settings.
-
-const config: { [key: string]: Knex.Config } = {
-  development: {
-    client: 'pg',
-    connection: process.env.DATABASE_URL,
-    migrations: {
-      extension: 'ts',
-    },
-  },
-
-  staging: {
-    client: 'pg',
-    connection: process.env.DATABASE_URL,
-    migrations: {
-      extension: 'ts',
-    },
-  },
-
-  production: {
-    client: 'pg',
-    connection: process.env.DATABASE_URL,
-    migrations: {
-      extension: 'ts',
-    },
-  }
-
+const config = {
+	client: 'pg',
+	connection: {
+		host:'postgres', 
+		user: 'pagespeed_app', 
+		password: 'pagespeed_admin', 
+		database: 'pagespeed_app', 
+		port: 5432
+	},
+	pool: {
+		min: 2,
+		max: 10,
+	},
+	migrations: {
+		tableName: '_migrations',
+		loadExtensions: ['.ts'],
+		directory: './docker/postgres/migrations',
+	},
+	seeds: {
+		directory: './docker/postgres/seeds',
+		loadExtensions: ['.ts'],
+	},
 };
 
-module.exports = config;
+module.exports = {
+	development: config,
+	test: config,
+	staging: config,
+	production: config,
+};

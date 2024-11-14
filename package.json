@@ -9,10 +9,11 @@
     "lint": "next lint",
     "prepare": "husky",
     "start:docker": "npm run build && npm run start",
-    "db:migrate": "knex migrate:latest",
-    "db:migrate:undo": "knex migrate:down",
-    "db:migrate:make": "knex migrate:make",
-    "watch": "watchy --no-init-spawn --debounce 1 -w src -- docker-compose restart backend"
+    "knex": "tsx ./node_modules/knex/bin/cli.js",
+    "db:migrate": "npm run knex -- migrate:latest",
+    "db:migrate:undo": "npm run knex -- migrate:down",
+    "db:migrate:make": "npm run knex -- migrate:make",
+    "watch": "watchy --no-init-spawn --debounce 1 -w src -- docker-compose restart app"
   },
   "dependencies": {
     "@emotion/cache": "^11.13.1",
@@ -25,7 +26,8 @@
     "next": "15.0.3",
     "pg": "^8.13.1",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "tsx": "^4.19.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
