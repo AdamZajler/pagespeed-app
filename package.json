@@ -7,7 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky"
+    "prepare": "husky",
+    "start:docker": "npm run build && npm run start",
+    "knex": "tsx ./node_modules/knex/bin/cli.js",
+    "db:migrate": "npm run knex -- migrate:latest",
+    "db:migrate:undo": "npm run knex -- migrate:down",
+    "db:migrate:make": "npm run knex -- migrate:make",
+    "watch": "watchy --no-init-spawn --debounce 1 -w src -- docker-compose restart app"
   },
   "dependencies": {
     "@emotion/cache": "^11.13.1",
@@ -15,9 +21,13 @@
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.1.6",
     "@mui/material-nextjs": "^6.1.6",
+    "@prisma/client": "^5.22.0",
+    "knex": "^3.1.0",
     "next": "15.0.3",
+    "pg": "^8.13.1",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "tsx": "^4.19.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
@@ -33,8 +43,11 @@
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "prettier": "3.3.3",
+    "prisma": "^5.22.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.6.3",
-    "typescript-eslint": "^8.13.0"
+    "typescript-eslint": "^8.13.0",
+    "watchy": "^0.10.2"
   },
   "lint-staged": {
     "**/*": [

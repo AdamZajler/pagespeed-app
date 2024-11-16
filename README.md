@@ -1,5 +1,6 @@
 # Instalacja
-Po prostu wpisz `npm install`
+Zainstaluj Docker Desktop 
+Następnie w konsoli wpisz docker compose up - automatycznie zbuduje to całość projektu
 
 ## Organizacja plików, folderów oraz kodu w projekcie
 
@@ -49,7 +50,7 @@ np.: `add-to-cart-button` / `search-bar` itp.
 
 #### Pliki:
 
-Pliki, zawierające komponent Reacto'wy, powinny być pisane w notacji `PascalCase`, pozostałe pliki z innymi
+Pliki, zawierające komponent React, powinny być pisane w notacji `PascalCase`, pozostałe pliki z innymi
 funkcjami piszemy w notacji `camelCase`
 
 #### Kod:
@@ -80,3 +81,38 @@ funkcjami piszemy w notacji `camelCase`
 1. Nie używamy `px`. Wszystkie rozmiary powinny brać się z jednostek Mui.
 2. Nie używamy ułamków rozmiarów. Tzn. element nie może mieć `borderRadius: 2.5;`, powinien to być dzielnik
    liczby 4, np. `borderRadius: 4;`/`borderRadius: 1;`.
+
+### Przydatne komendy
+
+#### npm run start:docker
+- budowanie projektu oraz jego uruchomienie
+
+#### npm run db:migrate
+- uruchomienie migracji bazy danych przy użyciu Knex
+
+#### npm run db:migrate:undo
+- cofnięcie wykonanej migracji bazy danych przy użyciu Knex
+
+#### npm run db:migrate:make
+- tworzy plik migracji bazy danych
+
+#### npm run db:migrate:make
+- tworzy plik migracji bazy danych
+
+#### npm run watch
+- automatycznie resetuje kontener po wykryciu zmian w projekcie
+
+#### docker compose exec app <komenda>
+- pozwala na użycie powyższych komend w kontenerze aplikacji
+
+#### docker compose up
+- inicjalizacja konternerów
+
+#### docker compose down
+- usuwa kontenery
+
+#### docker compose stop
+- wyłącza kontenery bez ich usunięcia
+
+#### docker compose build
+- uruchamia budowanie kontenerów
