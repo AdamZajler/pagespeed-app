@@ -1,4 +1,4 @@
-import { LoginContainer } from "@/features/LoginContainer";
+import { LoginContainer } from "@/features/login/LoginContainer";
 
 export default function Page() {
   return <LoginContainer />;
