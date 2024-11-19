@@ -28,6 +28,6 @@ export async function onSubmitAction(formData: LoginFormValues): Promise<FormSta
 
   return {
     success: true,
-    message: "User registered",
+    message: "Success",
   };
 }

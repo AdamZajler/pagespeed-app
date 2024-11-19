@@ -25,6 +25,7 @@ export function Input<TFieldValues extends FieldValues>({
   ...rest
 }: InputProps<TFieldValues>): ReactNode {
   if (required && !rules.required) {
+    console.log("REQUIRED!!");
     rules.required = "To pole jest wymagane";
   }
 
@@ -34,7 +35,7 @@ export function Input<TFieldValues extends FieldValues>({
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       control={control}
-      rules={rules}
+      rules={{ required: "To pole jest wymagane" }}
       // defaultValue={defaultValue}
       render={({
         field: { value, onChange, onBlur, disabled: formDisabled },
