@@ -23,7 +23,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="pl">
       <body className={roboto.variable}>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          <ThemeProvider theme={theme}>
+            <h1>Layout</h1>
+            {children}
+          </ThemeProvider>
           <CssBaseline />
         </AppRouterCacheProvider>
       </body>
