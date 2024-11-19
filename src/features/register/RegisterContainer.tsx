@@ -5,20 +5,20 @@ import { Input } from "@/components/controllers/Input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  type LoginFormValues,
-  LoginFormValuesSchema,
-} from "@/features/login/types/LoginFormValues";
-import { onSubmitAction } from "@/features/login/actions";
+  type RegisterFormValues,
+  RegisterFormValuesSchema,
+} from "@/features/register/types/RegisterFormValues";
+import { onSubmitAction } from "@/features/register/actions";
 import { validateForm } from "@/lib/form/validateForm";
 import { FormContainer } from "@/components/form-container/FormContainer";
 
-export function LoginContainer() {
-  const form = useForm<LoginFormValues>({
+export function RegisterContainer() {
+  const form = useForm<RegisterFormValues>({
     mode: "onBlur",
-    resolver: zodResolver(LoginFormValuesSchema),
+    resolver: zodResolver(RegisterFormValuesSchema),
   });
 
-  async function submitForm(data: LoginFormValues) {
+  async function submitForm(data: RegisterFormValues) {
     const { success, message, issues } = await onSubmitAction(data);
 
     const isFormOk = validateForm({
@@ -41,12 +41,13 @@ export function LoginContainer() {
       >
         <Stack spacing={6}>
           <Typography variant="h3" fontWeight="regular">
-            Logowanie
+            Rejestracja
           </Typography>
-          <Input control={form.control} name="email" label="e-mail" />
-          <Input control={form.control} name="password" label="hasło" />
+          <Input control={form.control} name="email" label="E-mail" />
+          <Input control={form.control} name="password" label="Hasło" />
+          <Input control={form.control} name="rePassword" label="Powtórz hasło" />
           <Button type="submit" variant="contained" disabled={form.formState.isSubmitting}>
-            Zaloguj się
+            Zarejestruj się
           </Button>
         </Stack>
       </FormContainer>
