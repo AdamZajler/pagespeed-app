@@ -5,6 +5,8 @@ import type { Metadata } from "next";
 import theme from "@/config/theme";
 import type { PropsWithChildren } from "react";
 import { CssBaseline } from "@mui/material";
+import { z } from "zod";
+import { customErrorMap } from "@/config/zod/errorMap";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -19,6 +21,8 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {
+  z.setErrorMap(customErrorMap);
+
   return (
     <html lang="pl">
       <body className={roboto.variable}>
