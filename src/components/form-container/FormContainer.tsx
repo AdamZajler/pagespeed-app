@@ -8,7 +8,7 @@ interface Props {
 
 export const FormContainer = ({ onSubmit, children, globalError }: PropsWithChildren<Props>) => {
   return (
-    <form onSubmit={onSubmit} style={{ width: "100%" }}>
+    <form onSubmit={onSubmit}>
       {children}
 
       {globalError ? <h6>{globalError.message}</h6> : null}

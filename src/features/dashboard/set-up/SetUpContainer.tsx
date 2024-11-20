@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Container, Grow, Stack, Typography } from "@mui/material";
+import { Button, Container, Grow, Stack } from "@mui/material";
 import { Input } from "@/components/controllers/Input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,6 +15,7 @@ import {
 import { useState } from "react";
 import { SetUpSuccessAnimationScreen } from "@/features/dashboard/set-up/components/SetUpSuccessAnimationScreen";
 import { TransitionGroup } from "react-transition-group";
+import { FormBox } from "@/components/form-container/FormBox";
 
 export function SetUpContainer() {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -40,7 +41,7 @@ export function SetUpContainer() {
   }
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{ height: "100%", display: "flex", alignItems: "center" }}>
       <TransitionGroup>
         {isSuccess ? (
           <Grow>
@@ -51,21 +52,20 @@ export function SetUpContainer() {
         ) : null}
       </TransitionGroup>
       {!isSuccess ? (
-        <FormContainer
-          onSubmit={form.handleSubmit(submitForm)}
-          globalError={form.formState.errors.root}
-        >
-          <Stack spacing={6}>
-            <Typography variant="h3" fontWeight="regular">
-              Dodaj pierwszą stronę
-            </Typography>
-            <Input control={form.control} name="apiKey" label="Podaj klucz API" />
-            <Input control={form.control} name="urlAddress" label="Podaj adres URL" />
-            <Button type="submit" variant="contained" disabled={form.formState.isSubmitting}>
-              Dalej
-            </Button>
-          </Stack>
-        </FormContainer>
+        <FormBox title="Dodaj pierwszą stronę">
+          <FormContainer
+            onSubmit={form.handleSubmit(submitForm)}
+            globalError={form.formState.errors.root}
+          >
+            <Stack spacing={6}>
+              <Input control={form.control} name="apiKey" label="Podaj klucz API" />
+              <Input control={form.control} name="urlAddress" label="Podaj adres URL" />
+              <Button type="submit" variant="contained" disabled={form.formState.isSubmitting}>
+                Dalej
+              </Button>
+            </Stack>
+          </FormContainer>
+        </FormBox>
       ) : null}
     </Container>
   );

@@ -36,11 +36,11 @@ export function RegisterContainer() {
 
   return (
     <Container maxWidth="xl" sx={{ height: "100%", display: "flex", alignItems: "center" }}>
-      <FormContainer
-        onSubmit={form.handleSubmit(submitForm)}
-        globalError={form.formState.errors.root}
-      >
-        <FormBox title="Rejestracja">
+      <FormBox title="Rejestracja">
+        <FormContainer
+          onSubmit={form.handleSubmit(submitForm)}
+          globalError={form.formState.errors.root}
+        >
           <Stack spacing={6}>
             <Input control={form.control} name="email" label="E-mail" />
             <Input control={form.control} name="password" label="Hasło" />
@@ -49,8 +49,8 @@ export function RegisterContainer() {
               Zarejestruj się
             </Button>
           </Stack>
-        </FormBox>
-      </FormContainer>
+        </FormContainer>
+      </FormBox>
     </Container>
   );
 }

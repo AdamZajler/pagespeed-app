@@ -36,11 +36,11 @@ export function LoginContainer() {
 
   return (
     <Container maxWidth="xl" sx={{ height: "100%", display: "flex", alignItems: "center" }}>
-      <FormContainer
-        onSubmit={form.handleSubmit(submitForm)}
-        globalError={form.formState.errors.root}
-      >
-        <FormBox title="Logowanie">
+      <FormBox title="Logowanie">
+        <FormContainer
+          onSubmit={form.handleSubmit(submitForm)}
+          globalError={form.formState.errors.root}
+        >
           <Stack spacing={6}>
             <Input control={form.control} name="email" label="e-mail" />
             <Input control={form.control} name="password" label="hasło" />
@@ -48,8 +48,8 @@ export function LoginContainer() {
               Zaloguj się
             </Button>
           </Stack>
-        </FormBox>
-      </FormContainer>
+        </FormContainer>
+      </FormBox>
     </Container>
   );
 }
