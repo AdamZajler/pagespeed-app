@@ -23,8 +23,10 @@ export const CommonLayout = ({ children }: PropsWithChildren) => {
     <html lang="pl">
       <body className={roboto.variable}>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
-          <CssBaseline />
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {children}
+          </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>

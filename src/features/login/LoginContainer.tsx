@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Container, Stack, Typography } from "@mui/material";
+import { Button, Container, Stack } from "@mui/material";
 import { Input } from "@/components/controllers/Input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +11,7 @@ import {
 import { onSubmitAction } from "@/features/login/actions";
 import { validateForm } from "@/lib/form/validateForm";
 import { FormContainer } from "@/components/form-container/FormContainer";
+import { FormBox } from "@/components/form-container/FormBox";
 
 export function LoginContainer() {
   const form = useForm<LoginFormValues>({
@@ -34,21 +35,20 @@ export function LoginContainer() {
   }
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{ height: "100%", display: "flex", alignItems: "center" }}>
       <FormContainer
         onSubmit={form.handleSubmit(submitForm)}
         globalError={form.formState.errors.root}
       >
-        <Stack spacing={6}>
-          <Typography variant="h3" fontWeight="regular">
-            Logowanie
-          </Typography>
-          <Input control={form.control} name="email" label="e-mail" />
-          <Input control={form.control} name="password" label="hasło" />
-          <Button type="submit" variant="contained" disabled={form.formState.isSubmitting}>
-            Zaloguj się
-          </Button>
-        </Stack>
+        <FormBox title="Logowanie">
+          <Stack spacing={6}>
+            <Input control={form.control} name="email" label="e-mail" />
+            <Input control={form.control} name="password" label="hasło" />
+            <Button type="submit" variant="contained" disabled={form.formState.isSubmitting}>
+              Zaloguj się
+            </Button>
+          </Stack>
+        </FormBox>
       </FormContainer>
     </Container>
   );

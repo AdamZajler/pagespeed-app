@@ -1,6 +1,5 @@
 "use client";
 import { createTheme } from "@mui/material/styles";
-import { MuiCssBaseline } from "@/config/mui-components-overrides/MuiCssBaseline";
 import { MuiContainer } from "@/config/mui-components-overrides/MuiContainer";
 import { MuiLink } from "@/config/mui-components-overrides/MuiLink";
 import { MuiDivider } from "@/config/mui-components-overrides/MuiDivider";
@@ -14,7 +13,15 @@ const theme = createTheme({
   palette: muiPalette(),
 
   components: {
-    MuiCssBaseline: MuiCssBaseline,
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+        },
+      },
+    },
     MuiContainer: MuiContainer,
     MuiLink: MuiLink,
     MuiDivider: MuiDivider,

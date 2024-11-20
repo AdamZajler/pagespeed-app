@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Container, Stack, Typography } from "@mui/material";
+import { Button, Container, Stack } from "@mui/material";
 import { Input } from "@/components/controllers/Input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +11,7 @@ import {
 import { onSubmitAction } from "@/features/register/actions";
 import { validateForm } from "@/lib/form/validateForm";
 import { FormContainer } from "@/components/form-container/FormContainer";
+import { FormBox } from "@/components/form-container/FormBox";
 
 export function RegisterContainer() {
   const form = useForm<RegisterFormValues>({
@@ -34,22 +35,21 @@ export function RegisterContainer() {
   }
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" sx={{ height: "100%", display: "flex", alignItems: "center" }}>
       <FormContainer
         onSubmit={form.handleSubmit(submitForm)}
         globalError={form.formState.errors.root}
       >
-        <Stack spacing={6}>
-          <Typography variant="h3" fontWeight="regular">
-            Rejestracja
-          </Typography>
-          <Input control={form.control} name="email" label="E-mail" />
-          <Input control={form.control} name="password" label="Hasło" />
-          <Input control={form.control} name="rePassword" label="Powtórz hasło" />
-          <Button type="submit" variant="contained" disabled={form.formState.isSubmitting}>
-            Zarejestruj się
-          </Button>
-        </Stack>
+        <FormBox title="Rejestracja">
+          <Stack spacing={6}>
+            <Input control={form.control} name="email" label="E-mail" />
+            <Input control={form.control} name="password" label="Hasło" />
+            <Input control={form.control} name="rePassword" label="Powtórz hasło" />
+            <Button type="submit" variant="contained" disabled={form.formState.isSubmitting}>
+              Zarejestruj się
+            </Button>
+          </Stack>
+        </FormBox>
       </FormContainer>
     </Container>
   );
