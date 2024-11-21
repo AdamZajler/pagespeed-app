@@ -8,6 +8,7 @@ COPY ./* ./prisma/
 
 RUN npm init -y
 RUN npm install @prisma/photon
+RUN npx prisma generate
 
 CMD [ "prisma", "studio" ]
 
