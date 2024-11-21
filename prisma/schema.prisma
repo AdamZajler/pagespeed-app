@@ -13,14 +13,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
+model Collection {
   id          String    @id
-  slug        String    @unique
-  title       String
-  content     String?
-  publishedAt DateTime?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  user_id        String    
+  name       String
 
-  @@map(name: "posts") // use "posts" as the table name
+  @@map(name: "Collection")
 }

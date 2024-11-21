@@ -1,0 +1,6 @@
+# Postgres
+docker/postgres/data
+
+# Next.js
+node_modules
+.next

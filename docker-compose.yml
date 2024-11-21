@@ -26,3 +26,12 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
       - 5432:5432
+  prisma:
+    container_name: prisma
+    ports:
+      - "5555:5555"
+    build:
+      context: prisma
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_URL=postgresql://pagespeed_app:pagespeed_admin@postgres:5432/pagespeed_app
