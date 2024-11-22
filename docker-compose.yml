@@ -13,6 +13,7 @@ services:
       - .env.local
     depends_on:
       - postgres
+      - prisma
   postgres:
     image: postgres:17-alpine
     volumes:
