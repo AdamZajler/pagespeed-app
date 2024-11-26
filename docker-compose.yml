@@ -4,16 +4,22 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 3000:3000
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-    command: npm run dev
+      - "3000:3000"
     env_file:
       - .env.local
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json
     depends_on:
       - postgres
       - prisma
+
   postgres:
     image: postgres:17-alpine
     volumes:
@@ -25,12 +31,12 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
       - 5432:5432
+
   prisma:
-    container_name: prisma
     ports:
       - "5555:5555"
     build:
-      context: prisma
+      context: .
       dockerfile: Dockerfile
     env_file:
       - .env.local

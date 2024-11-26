@@ -1,6 +1,7 @@
 # Instalacja
-Zainstaluj Docker Desktop 
-Następnie w konsoli wpisz docker compose up - automatycznie zbuduje to całość projektu
+1. Zainstaluj Docker Desktop 
+2. Następnie w konsoli wpisz `docker compose up --watch`
+3. Wejdź w strone `http://localhost:3000/`
 
 ## Organizacja plików, folderów oraz kodu w projekcie
 
