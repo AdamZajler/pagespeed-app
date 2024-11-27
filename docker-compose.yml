@@ -10,8 +10,8 @@ services:
     develop:
       watch:
         - action: sync
-          path: ./src
-          target: /app/src
+          path: /
+          target: /app
           ignore:
             - node_modules/
         - action: rebuild
@@ -33,10 +33,11 @@ services:
       - 5432:5432
 
   prisma:
+    container_name: prisma
     ports:
       - "5555:5555"
     build:
-      context: .
+      context: prisma
       dockerfile: Dockerfile
     env_file:
       - .env.local
