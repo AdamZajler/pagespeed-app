@@ -4,19 +4,87 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+// schema.prisma
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "postgresql" // Update this if you're using a different database
   url      = env("DATABASE_URL")
 }
 
-model Collection {
-  id          String    @id
-  user_id        String    
-  name       String
+model User {
+  id    String  @id @db.Char(16)
+  name  String  @unique @db.VarChar(32)
+  email String  @unique @db.VarChar(128)
+  
+  Config      Config?
+  Account     Account?
+  Domains     Domain[]
+  Collections Collection[]
+}
 
-  @@map(name: "Collection")
+model Config {
+  id      String @id @db.Char(16)
+  userId  String @unique @db.Char(16)
+  apiKey  String @db.VarChar(64)
+
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id           String   @id @db.Char(16)
+  userId       String   @unique @db.Char(16)
+  provider     String   @db.VarChar(64)
+  type         String   @db.VarChar(256)
+  refreshToken String   @db.VarChar(256)
+  accessToken  String   @db.VarChar(256)
+  expiresAt    DateTime
+  tokenType    String   @db.VarChar(256)
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Domain {
+  id     String  @id @db.Char(16)
+  userId String? @db.Char(16)
+  name   String  @db.VarChar(64)
+
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Urls   Url[]
+}
+
+model Collection {
+  id     String  @id @db.Char(16)
+  userId String  @db.Char(16)
+  name   String  @db.VarChar(64)
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Urls   Url[]
+}
+
+model Url {
+  id           String     @id @db.Char(16)
+  domainId     String     @db.Char(16)
+  collectionId String     @db.Char(16)
+  name         String     @db.Text
+
+  domain       Domain     @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  Histories    History[]
+}
+
+model History {
+  id             String   @id @db.Char(16)
+  urlId          String?  @db.Char(16)
+  performance    Int
+  accessibility  Int
+  bestPractices  Int
+  seo            Int
+  coreVitals     Json
+  createdAt      DateTime
+
+  url            Url?     @relation(fields: [urlId], references: [id], onDelete: Cascade)
 }
