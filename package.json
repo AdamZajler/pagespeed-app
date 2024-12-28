@@ -7,11 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prepare": "husky",
-    "knex": "tsx ./node_modules/knex/bin/cli.js",
-    "db:migrate": "npm run knex -- migrate:latest",
-    "db:migrate:undo": "npm run knex -- migrate:down",
-    "db:migrate:make": "npm run knex -- migrate:make"
+    "prepare": "husky"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",
@@ -23,14 +19,12 @@
     "@mui/material": "^6.1.6",
     "@mui/material-nextjs": "^6.1.6",
     "@prisma/client": "^5.22.0",
-    "knex": "^3.1.0",
     "next": "15.0.3",
     "next-auth": "^5.0.0-beta.25",
     "pg": "^8.13.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-hook-form": "^7.53.2",
-    "tsx": "^4.19.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {

@@ -1,7 +1,8 @@
 # Instalacja
 1. Zainstaluj Docker Desktop 
 2. Następnie w konsoli wpisz `docker compose up --watch`
-3. Wejdź w strone `http://localhost:3000/`
+3. Zaimportuj bazę danych przy użyciu komendy `npx prisma migrate deploy`
+4. Wejdź w strone `http://localhost:3000/`
 
 ## Organizacja plików, folderów oraz kodu w projekcie
 
@@ -88,17 +89,8 @@ funkcjami piszemy w notacji `camelCase`
 #### npm run start:docker
 - budowanie projektu oraz jego uruchomienie
 
-#### npm run db:migrate
-- uruchomienie migracji bazy danych przy użyciu Knex
-
-#### npm run db:migrate:undo
-- cofnięcie wykonanej migracji bazy danych przy użyciu Knex
-
-#### npm run db:migrate:make
-- tworzy plik migracji bazy danych
-
-#### npm run db:migrate:make
-- tworzy plik migracji bazy danych
+#### npx prisma migrate deploy
+- automatycznie importuje wszystkie migracje dla bazy danych
 
 #### npm run watch
 - automatycznie resetuje kontener po wykryciu zmian w projekcie
