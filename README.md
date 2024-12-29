@@ -1,7 +1,7 @@
 # Instalacja
 1. Zainstaluj Docker Desktop 
 2. Następnie w konsoli wpisz `docker compose up --watch`
-3. Zaimportuj bazę danych przy użyciu komendy `npx prisma migrate deploy`
+3. Zaimportuj bazę danych przy użyciu komendy `npx prisma migrate deploy` (lub `docker compose exec app npx prisma migrate deploy` jeśli poprzednia komenda nie działa)
 4. Wejdź w strone `http://localhost:3000/`
 
 ## Organizacja plików, folderów oraz kodu w projekcie

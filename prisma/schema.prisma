@@ -16,35 +16,84 @@ datasource db {
 }
 
 model User {
-  id    String  @id @db.Char(16)
-  name  String  @unique @db.VarChar(32)
-  email String  @unique @db.VarChar(128)
-  
-  Config      Config?
-  Account     Account?
-  Domains     Domain[]
-  Collections Collection[]
-}
+  id            String          @id @default(cuid())
+  name          String?
+  email         String          @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  // Optional for WebAuthn support
+  Authenticator Authenticator[]
 
-model Config {
-  id      String @id @db.Char(16)
-  userId  String @unique @db.Char(16)
-  apiKey  String @db.VarChar(64)
-
-  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  Config     Config?
+  Domain     Domain[]
+  Collection Collection[]
 }
 
 model Account {
-  id           String   @id @db.Char(16)
-  userId       String   @unique @db.Char(16)
-  provider     String   @db.VarChar(64)
-  type         String   @db.VarChar(256)
-  refreshToken String   @db.VarChar(256)
-  accessToken  String   @db.VarChar(256)
-  expiresAt    DateTime
-  tokenType    String   @db.VarChar(256)
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+// Optional for WebAuthn support
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
+}
+
+model Config {
+  id     String @id @db.Char(16)
+  userId String @unique @db.Char(16)
+  apiKey String @db.VarChar(64)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Domain {
@@ -52,39 +101,39 @@ model Domain {
   userId String? @db.Char(16)
   name   String  @db.VarChar(64)
 
-  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Urls   Url[]
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Urls Url[]
 }
 
 model Collection {
-  id     String  @id @db.Char(16)
-  userId String  @db.Char(16)
-  name   String  @db.VarChar(64)
+  id     String @id @db.Char(16)
+  userId String @db.Char(16)
+  name   String @db.VarChar(64)
 
-  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Urls   Url[]
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Urls Url[]
 }
 
 model Url {
-  id           String     @id @db.Char(16)
-  domainId     String     @db.Char(16)
-  collectionId String     @db.Char(16)
-  name         String     @db.Text
+  id           String @id @db.Char(16)
+  domainId     String @db.Char(16)
+  collectionId String @db.Char(16)
+  name         String @db.Text
 
-  domain       Domain     @relation(fields: [domainId], references: [id], onDelete: Cascade)
-  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
-  Histories    History[]
+  domain     Domain     @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  collection Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  Histories  History[]
 }
 
 model History {
-  id             String   @id @db.Char(16)
-  urlId          String?  @db.Char(16)
-  performance    Int
-  accessibility  Int
-  bestPractices  Int
-  seo            Int
-  coreVitals     Json
-  createdAt      DateTime
+  id            String   @id @db.Char(16)
+  urlId         String?  @db.Char(16)
+  performance   Int
+  accessibility Int
+  bestPractices Int
+  seo           Int
+  coreVitals    Json
+  createdAt     DateTime
 
-  url            Url?     @relation(fields: [urlId], references: [id], onDelete: Cascade)
+  url Url? @relation(fields: [urlId], references: [id], onDelete: Cascade)
 }
