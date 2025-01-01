@@ -11,7 +11,7 @@ export const HeaderBase = ({ children }: PropsWithChildren) => {
     >
       <Container maxWidth="xl" sx={{ height: "100%" }}>
         <Stack direction="row" spacing={6} height="100%" alignItems="center">
-          <Image src={logo} alt="Website Logo" />
+          <Image src={logo} alt="Website Logo" priority />
           <Box flexGrow={1}>{children}</Box>
         </Stack>
       </Container>
