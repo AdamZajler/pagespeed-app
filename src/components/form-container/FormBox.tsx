@@ -12,11 +12,13 @@ export const FormBox = ({ children, title }: PropsWithChildren<Props>) => {
       sx={{
         width: "100%",
         maxWidth: 656,
-        p: 12,
+        py: { xs: 6, sm: 12 },
+        px: { xs: 0, sm: 12 },
         mx: "auto",
-        borderWidth: "1px",
+        borderWidth: { xs: 0, sm: "1px" },
         borderStyle: "solid",
         borderColor: "common.black",
+        alignSelf: { xs: "flex-start", sm: "initial" },
       }}
     >
       <Typography variant="h3" fontWeight="regular">

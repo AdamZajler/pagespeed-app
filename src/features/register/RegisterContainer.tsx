@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Container, Stack } from "@mui/material";
+import { Button, Container, Link, Stack, Typography } from "@mui/material";
 import { Input } from "@/components/controllers/Input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,6 +12,7 @@ import { onSubmitAction } from "@/features/register/actions";
 import { validateForm } from "@/lib/form/validateForm";
 import { FormContainer } from "@/components/form-container/FormContainer";
 import { FormBox } from "@/components/form-container/FormBox";
+import { LOGIN_PAGE_URL } from "@/features/login/router";
 
 export function RegisterContainer() {
   const form = useForm<RegisterFormValues>({
@@ -48,6 +49,19 @@ export function RegisterContainer() {
             <Button type="submit" variant="contained" disabled={form.formState.isSubmitting}>
               Zarejestruj się
             </Button>
+            <Typography
+              sx={{
+                alignSelf: "center",
+              }}
+            >
+              Masz już konto?{" "}
+              <Link
+                href={LOGIN_PAGE_URL}
+                sx={{ textDecoration: "underline", color: "text.primary" }}
+              >
+                Zaloguj się!
+              </Link>
+            </Typography>
           </Stack>
         </FormContainer>
       </FormBox>

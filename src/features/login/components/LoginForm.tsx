@@ -41,7 +41,12 @@ export const LoginForm = () => {
       <Stack spacing={6}>
         <Input control={form.control} name="email" label="e-mail" />
         <Input control={form.control} name="password" label="hasło" />
-        <Button type="submit" variant="contained" disabled={form.formState.isSubmitting}>
+        <Button
+          type="submit"
+          variant="contained"
+          disabled={form.formState.isSubmitting}
+          sx={{ alignSelf: "center", width: "100%", maxWidth: 240 }}
+        >
           Zaloguj się
         </Button>
       </Stack>
