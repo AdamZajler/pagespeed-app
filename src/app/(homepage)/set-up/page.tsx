@@ -1,4 +1,4 @@
-import { SetUpContainer } from "@/features/dashboard/set-up/SetUpContainer";
+import { SetUpContainer } from "@/features/set-up/SetUpContainer";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { LOGIN_PAGE_URL } from "@/features/login/router";

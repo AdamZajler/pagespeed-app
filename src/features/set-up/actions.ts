@@ -2,10 +2,7 @@
 
 import type { FormState } from "@/types/FormState";
 import { parseZodErrorsToFormState } from "@/lib/form/parseZodErrorsToFormState";
-import {
-  type SetUpFormValues,
-  SetUpValuesSchema,
-} from "@/features/dashboard/set-up/types/SetUpFormValues";
+import { type SetUpFormValues, SetUpValuesSchema } from "@/features/set-up/types/SetUpFormValues";
 
 import { prisma } from "@prisma";
 import { checkIfUserIsLoggedIn } from "@/lib/actions/checkIfUserIsLoggedIn";

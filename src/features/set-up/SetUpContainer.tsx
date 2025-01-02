@@ -6,15 +6,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import LoadingButton from "@mui/lab/LoadingButton";
 
-import { onSubmitAction } from "@/features/dashboard/set-up/actions";
+import { onSubmitAction } from "@/features/set-up/actions";
 import { validateForm } from "@/lib/form/validateForm";
 import { FormContainer } from "@/components/form-container/FormContainer";
-import {
-  type SetUpFormValues,
-  SetUpValuesSchema,
-} from "@/features/dashboard/set-up/types/SetUpFormValues";
+import { type SetUpFormValues, SetUpValuesSchema } from "@/features/set-up/types/SetUpFormValues";
 import { useState } from "react";
-import { SetUpSuccessAnimationScreen } from "@/features/dashboard/set-up/components/SetUpSuccessAnimationScreen";
+import { SetUpSuccessAnimationScreen } from "@/features/set-up/components/SetUpSuccessAnimationScreen";
 import { TransitionGroup } from "react-transition-group";
 import { FormBox } from "@/components/form-container/FormBox";
 

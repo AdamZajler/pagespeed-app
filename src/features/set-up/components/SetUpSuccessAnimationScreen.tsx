@@ -1,5 +1,5 @@
 import { Stack, Typography } from "@mui/material";
-import { ProgressCircles } from "@/features/dashboard/set-up/components/progress-circles/ProgressCircles";
+import { ProgressCircles } from "@/features/set-up/components/progress-circles/ProgressCircles";
 
 export const SetUpSuccessAnimationScreen = () => {
   return (

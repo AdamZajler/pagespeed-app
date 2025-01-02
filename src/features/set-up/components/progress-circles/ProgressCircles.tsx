@@ -1,6 +1,6 @@
 "use client";
 import { Stack } from "@mui/material";
-import { Circle } from "@/features/dashboard/set-up/components/progress-circles/Circle";
+import { Circle } from "@/features/set-up/components/progress-circles/Circle";
 import { useState } from "react";
 import { redirect } from "next/navigation";
 import { DASHBOARD_PAGE_URL } from "@/features/dashboard/router";
