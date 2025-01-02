@@ -1,6 +1,7 @@
 "use client";
 
-import { Button, Container, Link, Stack, Typography } from "@mui/material";
+import { Container, Link, Stack, Typography } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { Input } from "@/components/controllers/Input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -46,9 +47,9 @@ export function RegisterContainer() {
             <Input control={form.control} name="email" label="E-mail" />
             <Input control={form.control} name="password" label="Hasło" />
             <Input control={form.control} name="rePassword" label="Powtórz hasło" />
-            <Button type="submit" variant="contained" disabled={form.formState.isSubmitting}>
+            <LoadingButton type="submit" variant="contained" loading={form.formState.isSubmitting}>
               Zarejestruj się
-            </Button>
+            </LoadingButton>
             <Typography
               sx={{
                 alignSelf: "center",

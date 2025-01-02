@@ -3,5 +3,6 @@ import { redirectToDashboardIfLoggedIn } from "@/lib/redirectToDashboardIfLogged
 
 export default async function Page() {
   await redirectToDashboardIfLoggedIn();
+
   return <LoginContainer />;
 }

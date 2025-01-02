@@ -1,9 +1,10 @@
 "use client";
 
-import { Button, Container, Grow, Stack } from "@mui/material";
+import { Container, Grow, Stack } from "@mui/material";
 import { Input } from "@/components/controllers/Input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 import { onSubmitAction } from "@/features/dashboard/set-up/actions";
 import { validateForm } from "@/lib/form/validateForm";
@@ -59,10 +60,19 @@ export function SetUpContainer() {
           >
             <Stack spacing={6}>
               <Input control={form.control} name="apiKey" label="Podaj klucz API" />
-              <Input control={form.control} name="urlAddress" label="Podaj adres URL" />
-              <Button type="submit" variant="contained" disabled={form.formState.isSubmitting}>
+              <Input
+                control={form.control}
+                name="urlAddress"
+                label="Podaj adres URL"
+                placeholder="https://mui.com"
+              />
+              <LoadingButton
+                type="submit"
+                variant="contained"
+                loading={form.formState.isSubmitting}
+              >
                 Dalej
-              </Button>
+              </LoadingButton>
             </Stack>
           </FormContainer>
         </FormBox>

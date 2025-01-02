@@ -1,138 +1,77 @@
--- CreateTable
-CREATE TABLE "User" (
-    "id" TEXT NOT NULL,
-    "name" TEXT,
-    "email" TEXT NOT NULL,
-    "emailVerified" TIMESTAMP(3),
-    "image" TEXT,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+/*
+  Warnings:
 
-    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
-);
+  - The primary key for the `Collection` table will be changed. If it partially fails, the table could be left without primary key constraint.
+  - The `id` column on the `Collection` table would be dropped and recreated. This will lead to data loss if there is data in the column.
+  - The primary key for the `Config` table will be changed. If it partially fails, the table could be left without primary key constraint.
+  - The `id` column on the `Config` table would be dropped and recreated. This will lead to data loss if there is data in the column.
+  - The primary key for the `Domain` table will be changed. If it partially fails, the table could be left without primary key constraint.
+  - The `id` column on the `Domain` table would be dropped and recreated. This will lead to data loss if there is data in the column.
+  - The primary key for the `History` table will be changed. If it partially fails, the table could be left without primary key constraint.
+  - The `id` column on the `History` table would be dropped and recreated. This will lead to data loss if there is data in the column.
+  - The `urlId` column on the `History` table would be dropped and recreated. This will lead to data loss if there is data in the column.
+  - The primary key for the `Url` table will be changed. If it partially fails, the table could be left without primary key constraint.
+  - The `id` column on the `Url` table would be dropped and recreated. This will lead to data loss if there is data in the column.
+  - Changed the type of `domainId` on the `Url` table. No cast exists, the column would be dropped and recreated, which cannot be done if there is data, since the column is required.
+  - Changed the type of `collectionId` on the `Url` table. No cast exists, the column would be dropped and recreated, which cannot be done if there is data, since the column is required.
 
--- CreateTable
-CREATE TABLE "Account" (
-    "userId" TEXT NOT NULL,
-    "type" TEXT NOT NULL,
-    "provider" TEXT NOT NULL,
-    "providerAccountId" TEXT NOT NULL,
-    "refresh_token" TEXT,
-    "access_token" TEXT,
-    "expires_at" INTEGER,
-    "token_type" TEXT,
-    "scope" TEXT,
-    "id_token" TEXT,
-    "session_state" TEXT,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+*/
+-- DropForeignKey
+ALTER TABLE "Collection" DROP CONSTRAINT "Collection_userId_fkey";
 
-    CONSTRAINT "Account_pkey" PRIMARY KEY ("provider","providerAccountId")
-);
+-- DropForeignKey
+ALTER TABLE "Config" DROP CONSTRAINT "Config_userId_fkey";
 
--- CreateTable
-CREATE TABLE "Session" (
-    "sessionToken" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "expires" TIMESTAMP(3) NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL
-);
+-- DropForeignKey
+ALTER TABLE "Domain" DROP CONSTRAINT "Domain_userId_fkey";
 
--- CreateTable
-CREATE TABLE "VerificationToken" (
-    "identifier" TEXT NOT NULL,
-    "token" TEXT NOT NULL,
-    "expires" TIMESTAMP(3) NOT NULL,
+-- DropForeignKey
+ALTER TABLE "History" DROP CONSTRAINT "History_urlId_fkey";
 
-    CONSTRAINT "VerificationToken_pkey" PRIMARY KEY ("identifier","token")
-);
+-- DropForeignKey
+ALTER TABLE "Url" DROP CONSTRAINT "Url_collectionId_fkey";
 
--- CreateTable
-CREATE TABLE "Authenticator" (
-    "credentialID" TEXT NOT NULL,
-    "userId" TEXT NOT NULL,
-    "providerAccountId" TEXT NOT NULL,
-    "credentialPublicKey" TEXT NOT NULL,
-    "counter" INTEGER NOT NULL,
-    "credentialDeviceType" TEXT NOT NULL,
-    "credentialBackedUp" BOOLEAN NOT NULL,
-    "transports" TEXT,
+-- DropForeignKey
+ALTER TABLE "Url" DROP CONSTRAINT "Url_domainId_fkey";
 
-    CONSTRAINT "Authenticator_pkey" PRIMARY KEY ("userId","credentialID")
-);
+-- AlterTable
+ALTER TABLE "Collection" DROP CONSTRAINT "Collection_pkey",
+DROP COLUMN "id",
+ADD COLUMN     "id" SERIAL NOT NULL,
+ALTER COLUMN "userId" SET DATA TYPE TEXT,
+ADD CONSTRAINT "Collection_pkey" PRIMARY KEY ("id");
 
--- CreateTable
-CREATE TABLE "Config" (
-    "id" CHAR(16) NOT NULL,
-    "userId" CHAR(16) NOT NULL,
-    "apiKey" VARCHAR(64) NOT NULL,
+-- AlterTable
+ALTER TABLE "Config" DROP CONSTRAINT "Config_pkey",
+DROP COLUMN "id",
+ADD COLUMN     "id" SERIAL NOT NULL,
+ALTER COLUMN "userId" SET DATA TYPE TEXT,
+ADD CONSTRAINT "Config_pkey" PRIMARY KEY ("id");
 
-    CONSTRAINT "Config_pkey" PRIMARY KEY ("id")
-);
+-- AlterTable
+ALTER TABLE "Domain" DROP CONSTRAINT "Domain_pkey",
+DROP COLUMN "id",
+ADD COLUMN     "id" SERIAL NOT NULL,
+ALTER COLUMN "userId" SET DATA TYPE TEXT,
+ADD CONSTRAINT "Domain_pkey" PRIMARY KEY ("id");
 
--- CreateTable
-CREATE TABLE "Domain" (
-    "id" CHAR(16) NOT NULL,
-    "userId" CHAR(16),
-    "name" VARCHAR(64) NOT NULL,
+-- AlterTable
+ALTER TABLE "History" DROP CONSTRAINT "History_pkey",
+DROP COLUMN "id",
+ADD COLUMN     "id" SERIAL NOT NULL,
+DROP COLUMN "urlId",
+ADD COLUMN     "urlId" INTEGER,
+ADD CONSTRAINT "History_pkey" PRIMARY KEY ("id");
 
-    CONSTRAINT "Domain_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Collection" (
-    "id" CHAR(16) NOT NULL,
-    "userId" CHAR(16) NOT NULL,
-    "name" VARCHAR(64) NOT NULL,
-
-    CONSTRAINT "Collection_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Url" (
-    "id" CHAR(16) NOT NULL,
-    "domainId" CHAR(16) NOT NULL,
-    "collectionId" CHAR(16) NOT NULL,
-    "name" TEXT NOT NULL,
-
-    CONSTRAINT "Url_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "History" (
-    "id" CHAR(16) NOT NULL,
-    "urlId" CHAR(16),
-    "performance" INTEGER NOT NULL,
-    "accessibility" INTEGER NOT NULL,
-    "bestPractices" INTEGER NOT NULL,
-    "seo" INTEGER NOT NULL,
-    "coreVitals" JSONB NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "History_pkey" PRIMARY KEY ("id")
-);
-
--- CreateIndex
-CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Session_sessionToken_key" ON "Session"("sessionToken");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Authenticator_credentialID_key" ON "Authenticator"("credentialID");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Config_userId_key" ON "Config"("userId");
-
--- AddForeignKey
-ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Authenticator" ADD CONSTRAINT "Authenticator_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+-- AlterTable
+ALTER TABLE "Url" DROP CONSTRAINT "Url_pkey",
+DROP COLUMN "id",
+ADD COLUMN     "id" SERIAL NOT NULL,
+DROP COLUMN "domainId",
+ADD COLUMN     "domainId" INTEGER NOT NULL,
+DROP COLUMN "collectionId",
+ADD COLUMN     "collectionId" INTEGER NOT NULL,
+ADD CONSTRAINT "Url_pkey" PRIMARY KEY ("id");
 
 -- AddForeignKey
 ALTER TABLE "Config" ADD CONSTRAINT "Config_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

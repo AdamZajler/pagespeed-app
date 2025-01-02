@@ -2,6 +2,8 @@
 import { Stack } from "@mui/material";
 import { Circle } from "@/features/dashboard/set-up/components/progress-circles/Circle";
 import { useState } from "react";
+import { redirect } from "next/navigation";
+import { DASHBOARD_PAGE_URL } from "@/features/dashboard/router";
 
 const circlesTitles = ["Wydajność", "Dostępność", "Dostępność", "SEO"];
 
@@ -13,7 +15,7 @@ export const ProgressCircles = () => {
   };
 
   if (successCircles === circlesTitles.length) {
-    console.log("KONIEC SUKO");
+    redirect(DASHBOARD_PAGE_URL);
   }
 
   return (

@@ -2,7 +2,7 @@ import "server-only";
 import type { OAuthProviderType } from "next-auth/providers/oauth-types";
 import { signIn } from "@/auth";
 import { LoginButtonBase } from "@/features/login/components/login-buttons/login-button/LoginButtonBase";
-import { DASHBOARD_PAGE_URL } from "@/features/dashboard/router";
+import { SET_UP_PAGE_URL } from "@/features/set-up/router";
 
 const allowedProviders: OAuthProviderType[] = ["discord", "google", "github"];
 
@@ -16,7 +16,7 @@ export const LoginButton = ({ provider }: LoginButtonProps) => {
 
   const handleAction = async () => {
     "use server";
-    await signIn(provider, { redirectTo: DASHBOARD_PAGE_URL });
+    await signIn(provider, { redirectTo: SET_UP_PAGE_URL });
   };
 
   return (

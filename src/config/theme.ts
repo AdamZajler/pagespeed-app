@@ -7,6 +7,7 @@ import { MuiAlert } from "@/config/mui-components-overrides/MuiAlert";
 import { muiPalette } from "@/config/mui-components-overrides/muiPalette";
 import { muiTypography } from "@/config/mui-components-overrides/muiTypography";
 import { MuiButton } from "@/config/mui-components-overrides/MuiButton";
+import { MuiLoadingButton } from "@/config/mui-components-overrides/MuiLoadingButton";
 
 const theme = createTheme({
   spacing: 4,
@@ -28,6 +29,7 @@ const theme = createTheme({
     MuiDivider: MuiDivider,
     MuiAlert: MuiAlert,
     MuiButton: MuiButton,
+    MuiLoadingButton: MuiLoadingButton,
   },
 });
 
