@@ -12,7 +12,7 @@ import { checkIfUserIsLoggedIn } from "@/lib/actions/checkIfUserIsLoggedIn";
 
 export async function onSubmitAction(formData: SetUpFormValues): Promise<FormState> {
   const { session, ...rest } = await checkIfUserIsLoggedIn();
-  if (!rest.success || !session) {
+  if (!rest.success || !session || !session.user?.id) {
     return rest;
   }
 
@@ -25,11 +25,27 @@ export async function onSubmitAction(formData: SetUpFormValues): Promise<FormSta
     });
   }
 
+  // Create a new config for the user
   await prisma.config.create({
     data: {
-      // id: "1",
-      userId: session.userId, // 16 znaków - ID istniejącego użytkownika
-      apiKey: "1234567890123456", // max 64 znaki
+      userId: session.user.id,
+      apiKey: formParsed.data.apiKey,
+    },
+  });
+
+  // Create domain
+  const domain = await prisma.domain.create({
+    data: {
+      userId: session.user.id,
+      name: formParsed.data.urlAddress,
+    },
+  });
+
+  // Create URL
+  await prisma.url.create({
+    data: {
+      domainId: domain.id,
+      name: "/",
     },
   });
 

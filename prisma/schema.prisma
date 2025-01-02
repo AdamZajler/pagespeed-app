@@ -108,11 +108,11 @@ model Collection {
 model Url {
   id           Int     @id @default(autoincrement())
   domainId     Int
-  collectionId Int
+  collectionId Int?
   name         String  @db.Text
 
   domain     Domain     @relation(fields: [domainId], references: [id], onDelete: Cascade)
-  collection Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  collection Collection? @relation(fields: [collectionId], references: [id], onDelete: Cascade)
   Histories  History[]
 }
 

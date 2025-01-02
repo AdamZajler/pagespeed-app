@@ -64,7 +64,7 @@ export function SetUpContainer() {
                 control={form.control}
                 name="urlAddress"
                 label="Podaj adres URL"
-                placeholder="https://mui.com"
+                placeholder="youtube.com"
               />
               <LoadingButton
                 type="submit"
