@@ -3,8 +3,16 @@ import { Box, Stack } from "@mui/material";
 import { SideBarMenu } from "@/features/dashboard/components/SideBarMenu";
 import { CommonLayout } from "@/components/layout/CommonLayout";
 import { HeaderDashboard } from "@/features/header/components/HeaderDashboard";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import { LOGIN_PAGE_URL } from "@/features/login/router";
 
-export default function RootLayout({ children }: PropsWithChildren) {
+export default async function RootLayout({ children }: PropsWithChildren) {
+  const session = await auth();
+  if (!session) {
+    redirect(LOGIN_PAGE_URL);
+  }
+
   return (
     <CommonLayout>
       <HeaderDashboard />
