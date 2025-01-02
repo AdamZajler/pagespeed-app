@@ -4,16 +4,18 @@ import { IconButton } from "@mui/material";
 import type { ReactNode } from "react";
 import GoogleIcon from "@mui/icons-material/Google";
 import type { LoginButtonProps } from "@/features/login/components/login-buttons/LoginButton";
+import DiscFullIcon from "@mui/icons-material/DiscFull";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 export const LoginButtonBase = ({ provider }: LoginButtonProps) => {
   const getProviderIcon = (): ReactNode => {
     switch (provider) {
       case "discord":
-        return <GoogleIcon />;
+        return <DiscFullIcon />;
       case "google":
         return <GoogleIcon />;
       case "github":
-        return <GoogleIcon />;
+        return <GitHubIcon />;
       default:
         return <GoogleIcon />;
     }
