@@ -74,3 +74,16 @@ export async function getUrlHistory(urlId: number): Promise<History | null> {
     },
   });
 }
+
+export async function onAddNewDomain(domainName: string): Promise<{ success: boolean }> {
+  const session = await getDashboardSession();
+
+  await prisma.domain.create({
+    data: {
+      userId: session!.user!.id,
+      name: domainName,
+    },
+  });
+
+  return { success: true };
+}

@@ -1,11 +1,12 @@
 "use client";
-import { Button, MenuItem, Select as MuiSelect, Skeleton } from "@mui/material";
+import { MenuItem, Select as MuiSelect, Skeleton } from "@mui/material";
 import type { Domain } from "@prisma/client";
 import { useContext, useEffect } from "react";
 import { saveInitDomainToLocalStorage } from "@/features/dashboard/lib/saveInitDomainToLocalStorage";
 import { saveDomainToLocalStorage } from "@/features/dashboard/lib/saveDomainToLocalStorage";
 import { GlobalContext } from "@/contexts/GlobalContext";
 import { getDomainFromLocalStorage } from "@/features/dashboard/lib/getDomainFromLocalStorage";
+import { AddNewDomainButton } from "@/features/dashboard/components/domain-select/AddNewDomainButton";
 
 interface Props {
   domains: Domain[];
@@ -58,7 +59,7 @@ export const Select = ({ domains }: Props) => {
           {domain.name.split(".")[0]}
         </MenuItem>
       ))}
-      <Button>Dodaj domene</Button>
+      <AddNewDomainButton successAction={() => {}} />
     </MuiSelect>
   );
 };
