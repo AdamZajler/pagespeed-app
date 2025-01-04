@@ -1,5 +1,5 @@
 "use client";
-import { Button, FormControl, InputLabel, MenuItem, Select as MuiSelect } from "@mui/material";
+import { Button, MenuItem, Select as MuiSelect, Skeleton } from "@mui/material";
 import type { Domain } from "@prisma/client";
 import { useContext, useEffect } from "react";
 import { saveInitDomainToLocalStorage } from "@/features/dashboard/lib/saveInitDomainToLocalStorage";
@@ -15,6 +15,10 @@ export const Select = ({ domains }: Props) => {
   const { domain, setDomain } = useContext(GlobalContext);
 
   useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
     saveInitDomainToLocalStorage({ domains });
     const savedDomain = getDomainFromLocalStorage();
 
@@ -27,29 +31,24 @@ export const Select = ({ domains }: Props) => {
     }
     // eslint-disable-next-line
   }, []);
-  console.log("domain,", domain);
-  return (
-    <FormControl>
-      <InputLabel id="label">Domain</InputLabel>
-      <MuiSelect
-        id="domain-select"
-        value={domain}
-        onChange={(e) => {
-          saveDomainToLocalStorage({ domain: e.target.value });
-          setDomain(e.target.value);
-        }}
-        labelId="label"
-        label="Domain"
-        sx={{ minWidth: 100 }}
-        disabled={domains.length === 0 || domain === ""}
-      >
-        {domains.map((domain, index) => (
-          <MenuItem key={index} value={domain.name}>
-            {domain.name.split(".")[0]}
-          </MenuItem>
-        ))}
-        <Button>Dodaj domene</Button>
-      </MuiSelect>
-    </FormControl>
+
+  return domains.length === 0 || domain === "" ? (
+    <Skeleton width={100} height={56} variant="rounded" />
+  ) : (
+    <MuiSelect
+      value={domain}
+      onChange={(e) => {
+        saveDomainToLocalStorage({ domain: e.target.value });
+        setDomain(e.target.value);
+      }}
+      sx={{ minWidth: 100 }}
+    >
+      {domains.map((domain, index) => (
+        <MenuItem key={index} value={domain.name}>
+          {domain.name.split(".")[0]}
+        </MenuItem>
+      ))}
+      <Button>Dodaj domene</Button>
+    </MuiSelect>
   );
 };
