@@ -3,14 +3,13 @@
 import { usePathname, useRouter } from "next/navigation";
 import { ListItemIcon, ListItemText, MenuItem, MenuList } from "@mui/material";
 import { sideBarMenuItems } from "@/features/dashboard/const/sideBarMenuItems";
-import ContentCut from "@mui/icons-material/ContentCut";
 
 export const SideBarMenu = () => {
   const router = useRouter();
   const pathname = usePathname();
 
   return (
-    <MenuList sx={{ maxWidth: 230, width: "100%" }}>
+    <MenuList sx={{ padding: 12, display: "flex", flexDirection: "column", gap: 6 }}>
       {sideBarMenuItems.map((menuItem, i) => {
         const isSelected = pathname === menuItem.pathname;
 
@@ -19,10 +18,20 @@ export const SideBarMenu = () => {
             key={`${menuItem.title}-${i}`}
             selected={isSelected}
             onClick={() => (isSelected ? null : router.push(menuItem.pathname))}
+            sx={{
+              justifyContent: "space-between",
+
+              "&.Mui-selected": {
+                backgroundColor: "unset",
+                color: "primary.500",
+
+                svg: {
+                  color: "primary.500",
+                },
+              },
+            }}
           >
-            <ListItemIcon>
-              <ContentCut fontSize="small" />
-            </ListItemIcon>
+            <ListItemIcon>{menuItem.icon}</ListItemIcon>
             <ListItemText>{menuItem.title}</ListItemText>
           </MenuItem>
         );

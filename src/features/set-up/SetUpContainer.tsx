@@ -60,7 +60,7 @@ export function SetUpContainer() {
               <Input
                 control={form.control}
                 name="urlAddress"
-                label="Podaj adres URL"
+                label="Podaj domenę"
                 placeholder="youtube.com"
               />
               <LoadingButton
