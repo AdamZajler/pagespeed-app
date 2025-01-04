@@ -14,6 +14,7 @@ import { useState } from "react";
 import { SetUpSuccessAnimationScreen } from "@/features/set-up/components/SetUpSuccessAnimationScreen";
 import { TransitionGroup } from "react-transition-group";
 import { FormBox } from "@/components/form-container/FormBox";
+import { ALL_COLLECTION_NAME } from "@/features/dashboard/components/page-results-container/ResultGroup";
 
 export function SetUpContainer() {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -24,7 +25,7 @@ export function SetUpContainer() {
   });
 
   async function submitForm(data: SetUpFormValues) {
-    const { success, message, issues } = await onSubmitAction(data);
+    const { success, message, issues } = await onSubmitAction(data, ALL_COLLECTION_NAME);
 
     const isFormOk = validateForm({
       control: form.control,

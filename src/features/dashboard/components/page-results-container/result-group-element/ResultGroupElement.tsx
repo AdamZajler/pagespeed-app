@@ -1,6 +1,7 @@
 import { ButtonBase, Link, Stack, Typography } from "@mui/material";
 import { DASHBOARD_RESULTS_PAGE_URL } from "@/features/dashboard/router";
 import type { Url } from "@prisma/client";
+import { Circles } from "@/features/dashboard/components/page-results-container/result-group-element/Circles";
 
 interface Props {
   url: Url;
@@ -9,7 +10,8 @@ interface Props {
 export const ResultGroupElement = ({ url }: Props) => {
   return (
     <Stack direction="row" justifyContent="space-between" alignItems="center">
-      <Typography>{url.name}</Typography>
+      <Typography width={220}>{url.name}</Typography>
+      <Circles urlId={url.id} />
       <Link href={`${DASHBOARD_RESULTS_PAGE_URL}/${url.id}`}>
         <ButtonBase
           component="div"

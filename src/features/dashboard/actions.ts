@@ -1,10 +1,10 @@
 "use server";
 
-import type { Collection, Domain, Url } from "@prisma/client";
+import type { Collection, Domain, Url, History } from "@prisma/client";
 import { prisma } from "@prisma";
 import { getDashboardSession } from "@/features/dashboard/lib/getDashboardSession";
 import { obtainPageSpeedResult } from "@/actions/pagespeed-api/obtainPageSpeedResult";
-import { revalidateTag, unstable_cache as cache } from "next/cache";
+import { unstable_cache as cache } from "next/cache";
 
 export async function getDomainUrlsByCollection(collectionId: number): Promise<Url[]> {
   // Sprawdź uprawnienia
@@ -22,10 +22,6 @@ export async function getDomainUrlsByCollection(collectionId: number): Promise<U
       collectionId,
     },
   });
-}
-
-export async function revalidateCollections() {
-  revalidateTag("get-user-collections");
 }
 
 // Then define the cached function that accepts the userId as a parameter
@@ -69,4 +65,12 @@ export async function onAddAddressToDomain(
   await obtainPageSpeedResult({ url: `https://www.${domain.name}/${pathname}`, urlId: url.id });
 
   return { success: true };
+}
+
+export async function getUrlHistory(urlId: number): Promise<History | null> {
+  return prisma.history.findFirst({
+    where: {
+      urlId,
+    },
+  });
 }

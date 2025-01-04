@@ -14,7 +14,7 @@ import { getDomainUrlsByCollection } from "@/features/dashboard/actions";
 import { GlobalContext } from "@/contexts/GlobalContext";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
-import { ResultGroupElement } from "@/features/dashboard/components/page-results-container/ResultGroupElement";
+import { ResultGroupElement } from "@/features/dashboard/components/page-results-container/result-group-element/ResultGroupElement";
 
 export const ALL_COLLECTION_NAME = "all";
 
