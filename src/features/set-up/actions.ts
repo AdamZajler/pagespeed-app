@@ -6,6 +6,7 @@ import { type SetUpFormValues, SetUpValuesSchema } from "@/features/set-up/types
 
 import { prisma } from "@prisma";
 import { checkIfUserIsLoggedIn } from "@/lib/actions/checkIfUserIsLoggedIn";
+import { obtainPageSpeedResult } from "@/actions/pagespeed-api/obtainPageSpeedResult";
 
 export async function onSubmitAction(formData: SetUpFormValues): Promise<FormState> {
   const { session, ...rest } = await checkIfUserIsLoggedIn();
@@ -39,12 +40,14 @@ export async function onSubmitAction(formData: SetUpFormValues): Promise<FormSta
   });
 
   // Create URL
-  await prisma.url.create({
+  const url = await prisma.url.create({
     data: {
       domainId: domain.id,
       name: "/",
     },
   });
+
+  await obtainPageSpeedResult({ url: `https://www.${domain.name}`, urlId: url.id });
 
   return {
     success: true,

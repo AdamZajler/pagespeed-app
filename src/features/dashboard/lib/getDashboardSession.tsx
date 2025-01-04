@@ -5,7 +5,7 @@ import type { Session } from "next-auth";
 
 export const getDashboardSession = async (): Promise<Session> => {
   const session = await auth();
-  if (!session) {
+  if (!session || !session?.user?.id) {
     redirect(LOGIN_PAGE_URL);
   }
 

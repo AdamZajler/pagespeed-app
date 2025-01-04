@@ -13,6 +13,11 @@ export const Circle = ({ title, onSuccessAction }: Props) => {
   const [value, setValue] = useState<number>(0);
 
   useEffect(() => {
+    const totalDuration = 6000;
+    const updateInterval = 800;
+    const steps = totalDuration / updateInterval; // Total number of steps
+    const averageIncrement = 100 / steps; // Average increment per step
+
     const interval = setInterval(() => {
       setValue((prevState) => {
         if (prevState >= 100) {
@@ -21,12 +26,16 @@ export const Circle = ({ title, onSuccessAction }: Props) => {
           return prevState;
         }
 
-        const step = getRandomNumberInRange(10, 20);
+        // Random variation around the average increment
+        const variation = getRandomNumberInRange(-1, 1);
+        const increment = averageIncrement + variation;
 
-        return prevState + step >= 100 ? 100 : prevState + step;
+        // Ensure we don't exceed 100
+        return prevState + increment >= 100 ? 100 : prevState + increment;
       });
-    }, 800);
+    }, updateInterval);
 
+    // Cleanup interval on component unmount
     return () => clearInterval(interval);
   }, []);
 
@@ -62,7 +71,7 @@ export const Circle = ({ title, onSuccessAction }: Props) => {
             transform: "translate(-50%,-50%)",
           }}
         >
-          {value}
+          {value.toFixed()}
         </Typography>
       </Box>
       <Typography textAlign="center">{title}</Typography>

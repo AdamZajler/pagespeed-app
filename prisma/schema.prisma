@@ -119,10 +119,10 @@ model Url {
 model History {
   id            Int      @id @default(autoincrement())
   urlId         Int?
-  performance   Int
-  accessibility Int
-  bestPractices Int
-  seo           Int
+  performance   Float
+  accessibility Float
+  bestPractices Float
+  seo           Float
   coreVitals    Json
   createdAt     DateTime
 

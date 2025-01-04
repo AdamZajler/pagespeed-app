@@ -6,6 +6,7 @@ import { HeaderDashboard } from "@/features/header/components/HeaderDashboard";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { LOGIN_PAGE_URL } from "@/features/login/router";
+import { GlobalProvider } from "@/contexts/GlobalContext";
 
 export default async function RootLayout({ children }: PropsWithChildren) {
   const session = await auth();
@@ -15,11 +16,13 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 
   return (
     <CommonLayout>
-      <HeaderDashboard />
-      <Stack direction="row" flexWrap="wrap">
-        <SideBarMenu />
-        <Box flexGrow={1}>{children}</Box>
-      </Stack>
+      <GlobalProvider>
+        <HeaderDashboard />
+        <Stack direction="row" flexWrap="wrap">
+          <SideBarMenu />
+          <Box flexGrow={1}>{children}</Box>
+        </Stack>
+      </GlobalProvider>
     </CommonLayout>
   );
 }

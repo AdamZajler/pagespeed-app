@@ -1,6 +1,6 @@
 import { HeaderBase } from "@/features/header/components/HeaderBase";
 import { Stack, Typography } from "@mui/material";
-import { DomainSelect } from "@/features/dashboard/components/DomainSelect";
+import { DomainSelect } from "@/features/dashboard/components/domain-select/DomainSelect";
 
 export const HeaderDashboard = () => {
   return (

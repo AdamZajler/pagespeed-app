@@ -103,10 +103,10 @@ CREATE TABLE "Url" (
 CREATE TABLE "History" (
     "id" SERIAL NOT NULL,
     "urlId" INTEGER,
-    "performance" INTEGER NOT NULL,
-    "accessibility" INTEGER NOT NULL,
-    "bestPractices" INTEGER NOT NULL,
-    "seo" INTEGER NOT NULL,
+    "performance" DOUBLE PRECISION NOT NULL,
+    "accessibility" DOUBLE PRECISION NOT NULL,
+    "bestPractices" DOUBLE PRECISION NOT NULL,
+    "seo" DOUBLE PRECISION NOT NULL,
     "coreVitals" JSONB NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL,
 
