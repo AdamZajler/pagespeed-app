@@ -7,6 +7,7 @@ import { type SetUpFormValues, SetUpValuesSchema } from "@/features/set-up/types
 import { prisma } from "@prisma";
 import { checkIfUserIsLoggedIn } from "@/lib/actions/checkIfUserIsLoggedIn";
 import { obtainPageSpeedResult } from "@/actions/pagespeed-api/obtainPageSpeedResult";
+import { ALL_COLLECTION_NAME } from "@/features/dashboard/components/page-results-container/ResultGroup";
 
 export async function onSubmitAction(formData: SetUpFormValues): Promise<FormState> {
   const { session, ...rest } = await checkIfUserIsLoggedIn();
@@ -39,11 +40,20 @@ export async function onSubmitAction(formData: SetUpFormValues): Promise<FormSta
     },
   });
 
+  // Crete default collection
+  const collection = await prisma.collection.create({
+    data: {
+      name: ALL_COLLECTION_NAME,
+      userId: session.user.id,
+    },
+  });
+
   // Create URL
   const url = await prisma.url.create({
     data: {
       domainId: domain.id,
       name: "/",
+      collectionId: collection.id,
     },
   });
 

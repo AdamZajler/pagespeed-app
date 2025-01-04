@@ -18,7 +18,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
     <CommonLayout>
       <GlobalProvider>
         <HeaderDashboard />
-        <Stack direction="row" flexWrap="wrap">
+        <Stack direction="row" flexWrap="wrap" height="100%">
           <SideBarMenu />
           <Box flexGrow={1}>{children}</Box>
         </Stack>

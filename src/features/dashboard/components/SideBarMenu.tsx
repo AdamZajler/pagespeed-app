@@ -9,7 +9,15 @@ export const SideBarMenu = () => {
   const pathname = usePathname();
 
   return (
-    <MenuList sx={{ padding: 12, display: "flex", flexDirection: "column", gap: 6 }}>
+    <MenuList
+      sx={{
+        padding: 12,
+        display: "flex",
+        flexDirection: "column",
+        gap: 6,
+        backgroundColor: "#FAFAFA",
+      }}
+    >
       {sideBarMenuItems.map((menuItem, i) => {
         const isSelected = pathname === menuItem.pathname;
 
