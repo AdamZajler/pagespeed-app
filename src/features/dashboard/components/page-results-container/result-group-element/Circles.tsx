@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Circle = ({ value, title }: { value: number; title: string }) => {
-  const valueParsed = value * 100;
+  const valueParsed = Math.round(value * 100);
   const color =
     valueParsed === 0
       ? "grey.100"
