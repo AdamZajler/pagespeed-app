@@ -5,9 +5,10 @@ import { Form } from "@/features/dashboard/components/page-results-container/add
 interface Props {
   open: boolean;
   closeAction: () => void;
+  successAction: () => void;
 }
 
-export const Dialog = ({ open, closeAction }: Props) => {
+export const Dialog = ({ open, closeAction, successAction }: Props) => {
   return (
     <MuiDialog
       onClose={closeAction}
@@ -28,7 +29,12 @@ export const Dialog = ({ open, closeAction }: Props) => {
         <DialogTitle variant="h3" fontWeight="regular" sx={{ p: 0 }}>
           Dodaj nowy adres witryny
         </DialogTitle>
-        <Form successAction={closeAction} />
+        <Form
+          successAction={() => {
+            closeAction();
+            successAction();
+          }}
+        />
       </Stack>
     </MuiDialog>
   );

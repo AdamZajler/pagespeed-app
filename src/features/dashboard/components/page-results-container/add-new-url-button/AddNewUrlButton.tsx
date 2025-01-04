@@ -3,7 +3,11 @@ import { Button, Stack } from "@mui/material";
 import { useState } from "react";
 import { Dialog } from "@/features/dashboard/components/page-results-container/add-new-url-button/Dialog";
 
-export const AddNewUrlButton = () => {
+interface Props {
+  successAction: () => Promise<void>;
+}
+
+export const AddNewUrlButton = ({ successAction }: Props) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -15,7 +19,7 @@ export const AddNewUrlButton = () => {
       >
         Dodaj kolejną stronę
       </Button>
-      <Dialog open={open} closeAction={() => setOpen(false)} />
+      <Dialog open={open} closeAction={() => setOpen(false)} successAction={successAction} />
     </Stack>
   );
 };

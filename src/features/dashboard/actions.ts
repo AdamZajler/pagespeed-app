@@ -24,6 +24,10 @@ export async function getDomainUrlsByCollection(collectionId: number): Promise<U
   });
 }
 
+export async function revalidateCollections() {
+  revalidateTag("get-user-collections");
+}
+
 // Then define the cached function that accepts the userId as a parameter
 export const getUserCollections = cache(
   async (userId: string): Promise<Collection[]> => {
@@ -63,9 +67,6 @@ export async function onAddAddressToDomain(
   });
 
   await obtainPageSpeedResult({ url: `https://www.${domain.name}/${pathname}`, urlId: url.id });
-  revalidateTag("get-user-collections");
-  revalidateTag("get-user-collections");
-  revalidateTag("get-user-collections");
 
   return { success: true };
 }

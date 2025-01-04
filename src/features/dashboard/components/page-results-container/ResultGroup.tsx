@@ -1,11 +1,20 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
-import { Collapse, Skeleton, Stack, Typography } from "@mui/material";
+import {
+  Collapse,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Skeleton,
+  Stack,
+} from "@mui/material";
 import type { Collection, Url } from "@prisma/client";
 import { getDomainUrlsByCollection } from "@/features/dashboard/actions";
 import { GlobalContext } from "@/contexts/GlobalContext";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import { ResultGroupElement } from "@/features/dashboard/components/page-results-container/ResultGroupElement";
 
 export const ALL_COLLECTION_NAME = "all";
 
@@ -34,8 +43,6 @@ export const ResultGroup = ({ collection }: Props) => {
     // eslint-disable-next-line
   }, [domain]);
 
-  console.log("urls", urls);
-
   return (
     <Stack spacing={6}>
       <Stack
@@ -44,8 +51,12 @@ export const ResultGroup = ({ collection }: Props) => {
         onClick={() => setOpen((prev) => !prev)}
         sx={{ cursor: "pointer" }}
       >
-        <Typography>{collection.name}</Typography>
-        {open ? <ExpandLess /> : <ExpandMore />}
+        <ListItemButton sx={{ p: 0 }}>
+          <ListItemText
+            primary={collection.name === "all" ? "Strony bez grupy" : collection.name}
+          />
+          <ListItemIcon>{open ? <ExpandLess /> : <ExpandMore />}</ListItemIcon>
+        </ListItemButton>
       </Stack>
       <Collapse in={open}>
         {isLoading ? (
@@ -53,7 +64,11 @@ export const ResultGroup = ({ collection }: Props) => {
         ) : urls.length === 0 ? (
           "nie ma wyników lol"
         ) : (
-          urls.map((url) => <div key={url.id}>{url.name}</div>)
+          <List sx={{ p: 0, display: "flex", flexDirection: "column", gap: 4, mx: 3 }}>
+            {urls.map((url) => (
+              <ResultGroupElement key={url.id} url={url} />
+            ))}
+          </List>
         )}
       </Collapse>
     </Stack>

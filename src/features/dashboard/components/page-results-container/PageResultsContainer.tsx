@@ -13,20 +13,24 @@ export const PageResultsContainer = () => {
   const [collections, setCollections] = useState<Collection[]>([]);
   const { domain } = useContext(GlobalContext);
 
+  const refreshData = async () => {
+    setIsLoading(true);
+
+    const session = await getDashboardSession();
+    const collectionsData = await getUserCollections(session.user!.id as string);
+
+    setCollections(collectionsData);
+    setIsLoading(false);
+  };
+
   useEffect(() => {
     if (!domain) return;
-
-    const getData = async () => {
-      const session = await getDashboardSession();
-      const collectionsData = await getUserCollections(session.user!.id as string);
-      setCollections(collectionsData);
-      setIsLoading(false);
-    };
-
-    void getData();
+    void refreshData();
   }, [domain]);
 
-  console.log(collections);
+  const handleRefresh = async () => {
+    await refreshData();
+  };
 
   return (
     <Box p={26}>
@@ -40,7 +44,7 @@ export const PageResultsContainer = () => {
             <ResultGroup key={collection.id} collection={collection} />
           ))
         )}
-        <AddNewUrlButton />
+        <AddNewUrlButton successAction={handleRefresh} />
       </Stack>
     </Box>
   );

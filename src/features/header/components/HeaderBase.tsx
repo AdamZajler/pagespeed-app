@@ -6,7 +6,8 @@ import type { PropsWithChildren } from "react";
 export const HeaderBase = ({ children }: PropsWithChildren) => {
   return (
     <Box
-      height={64}
+      component="header"
+      minHeight={66}
       sx={{ borderBottomWidth: "1px", borderBottomStyle: "solid", borderBottomColor: "grey.100" }}
     >
       <Container maxWidth="xl" sx={{ height: "100%" }}>
