@@ -2,14 +2,15 @@
 
 import type { ReactNode } from "react";
 import { createContext, useState } from "react";
+import type { Domain } from "@prisma/client";
 
 type GlobalContextType = {
-  domain: string;
-  setDomain: (domain: string) => void;
+  domain: Domain | null;
+  setDomain: (domain: Domain | null) => void;
 };
 
 export const GlobalContext = createContext<GlobalContextType>({
-  domain: "",
+  domain: null,
   setDomain: () => {},
 });
 
@@ -18,7 +19,7 @@ interface DomainProviderProps {
 }
 
 export function GlobalProvider({ children }: DomainProviderProps) {
-  const [domain, setDomain] = useState<string>("");
+  const [domain, setDomain] = useState<GlobalContextType["domain"]>(null);
 
   const value: GlobalContextType = {
     domain,

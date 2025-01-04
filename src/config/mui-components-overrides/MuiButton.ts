@@ -6,7 +6,11 @@ type Theme = typeof theme;
 export const MuiButton: Components<Theme>["MuiButton"] = {
   defaultProps: {},
 
-  styleOverrides: {},
+  styleOverrides: {
+    root: {
+      textTransform: "none",
+    },
+  },
 
   variants: [
     {

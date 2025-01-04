@@ -1,3 +1,5 @@
+"use server";
+
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { LOGIN_PAGE_URL } from "@/features/login/router";

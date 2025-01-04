@@ -21,7 +21,7 @@ export const ResultGroup = ({ collection }: Props) => {
   const { domain } = useContext(GlobalContext);
 
   useEffect(() => {
-    if (domain === "") return;
+    if (!domain) return;
 
     const getData = async () => {
       const urlsData = await getDomainUrlsByCollection(collection.id);
@@ -30,12 +30,14 @@ export const ResultGroup = ({ collection }: Props) => {
     };
 
     void getData();
+
+    // eslint-disable-next-line
   }, [domain]);
 
   console.log("urls", urls);
 
   return (
-    <Stack spacing={6} maxWidth={770}>
+    <Stack spacing={6}>
       <Stack
         direction="row"
         justifyContent="space-between"

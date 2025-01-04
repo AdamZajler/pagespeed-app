@@ -23,23 +23,33 @@ export const Select = ({ domains }: Props) => {
     const savedDomain = getDomainFromLocalStorage();
 
     if (domains.length === 1 || !savedDomain) {
-      setDomain(domains[0].name);
+      setDomain(domains[0]);
       saveDomainToLocalStorage({ domain: domains[0].name });
     } else if (savedDomain) {
-      setDomain(savedDomain);
+      const find = domains.find((d) => d.name === savedDomain);
+      if (!find) {
+        return;
+      }
+
+      setDomain(find);
       saveDomainToLocalStorage({ domain: savedDomain });
     }
     // eslint-disable-next-line
   }, []);
 
-  return domains.length === 0 || domain === "" ? (
+  return domains.length === 0 || !domain?.name ? (
     <Skeleton width={100} height={56} variant="rounded" />
   ) : (
     <MuiSelect
-      value={domain}
+      value={domain.name}
       onChange={(e) => {
-        saveDomainToLocalStorage({ domain: e.target.value });
-        setDomain(e.target.value);
+        const find = domains.find((d) => d.name === e.target.value);
+        if (!find) {
+          return;
+        }
+
+        saveDomainToLocalStorage({ domain: find.name });
+        setDomain(find);
       }}
       sx={{ minWidth: 100 }}
     >
