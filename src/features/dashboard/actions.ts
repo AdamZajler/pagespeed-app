@@ -99,3 +99,19 @@ export async function onAddNewDomain(domainName: string): Promise<{ success: boo
 
   return { success: true };
 }
+
+export async function getHistoryById(id: number) {
+  return prisma.history.findFirst({
+    where: {
+      id,
+    },
+  });
+}
+
+export async function getUrlById(id: number) {
+  return prisma.url.findFirst({
+    where: {
+      id,
+    },
+  });
+}
