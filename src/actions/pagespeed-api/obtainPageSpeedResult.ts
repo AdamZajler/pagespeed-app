@@ -12,6 +12,7 @@ import {
 type Props = Pick<SavePageSpeedResultProps, "urlId"> & GetPageSpeedResultProps;
 
 export async function obtainPageSpeedResult({ url, urlId }: Props): Promise<{ success: boolean }> {
+  console.log("Wykonuje pomiar: ", url, urlId);
   const { data } = await getPageSpeedResult({ url });
   if (!data) {
     return { success: false };

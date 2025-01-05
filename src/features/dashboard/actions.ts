@@ -84,6 +84,9 @@ export async function getUrlHistory(urlId: number): Promise<History | null> {
     where: {
       urlId,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 }
 
@@ -100,10 +103,13 @@ export async function onAddNewDomain(domainName: string): Promise<{ success: boo
   return { success: true };
 }
 
-export async function getHistoryById(id: number) {
+export async function getHistoryByUrlId(id: number) {
   return prisma.history.findFirst({
     where: {
-      id,
+      urlId: id,
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   });
 }
@@ -114,4 +120,19 @@ export async function getUrlById(id: number) {
       id,
     },
   });
+}
+
+export async function getDomainById(id: number) {
+  return prisma.domain.findFirst({
+    where: {
+      id,
+    },
+  });
+}
+
+export async function obtainPageSpeedResultAction(
+  url: string,
+  urlId: number,
+): Promise<{ success: boolean }> {
+  return await obtainPageSpeedResult({ url, urlId });
 }
