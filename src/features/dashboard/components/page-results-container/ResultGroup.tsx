@@ -42,7 +42,7 @@ export const ResultGroup = ({ collection }: Props) => {
 
     // eslint-disable-next-line
   }, [domain]);
-
+  console.log("urls", urls);
   return (
     <Stack spacing={6}>
       <Stack
@@ -62,7 +62,7 @@ export const ResultGroup = ({ collection }: Props) => {
         {isLoading ? (
           <Skeleton />
         ) : urls.length === 0 ? (
-          "nie ma wyników lol"
+          `nie ma wyników lol ${collection.id}`
         ) : (
           <List sx={{ p: 0, display: "flex", flexDirection: "column", gap: 4, mx: 3 }}>
             {urls.map((url) => (

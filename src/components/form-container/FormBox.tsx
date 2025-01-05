@@ -8,16 +8,17 @@ interface Props {
 export const FormBox = ({ children, title }: PropsWithChildren<Props>) => {
   return (
     <Stack
-      spacing={6}
+      spacing={10}
       sx={{
         width: "100%",
-        maxWidth: 656,
-        py: { xs: 6, sm: 12 },
+        maxWidth: 620,
+        py: { xs: 12 },
         px: { xs: 0, sm: 12 },
         mx: "auto",
         borderWidth: { xs: 0, sm: "1px" },
         borderStyle: "solid",
         borderColor: "common.black",
+        borderRadius: 2,
         alignSelf: { xs: "flex-start", sm: "initial" },
       }}
     >

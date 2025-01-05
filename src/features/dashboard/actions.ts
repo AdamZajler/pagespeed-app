@@ -40,6 +40,18 @@ export const getUserCollections = cache(
   ["get-user-collections"],
 );
 
+export async function onAddNewCollection(collectionName: string): Promise<{ success: boolean }> {
+  const session = await getDashboardSession();
+  await prisma.collection.create({
+    data: {
+      name: collectionName,
+      userId: session!.user!.id,
+    },
+  });
+
+  return { success: true };
+}
+
 export async function onAddAddressToDomain(
   pathname: string,
   domain: Domain,

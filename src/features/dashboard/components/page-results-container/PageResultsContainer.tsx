@@ -7,6 +7,7 @@ import { Box, Stack } from "@mui/material";
 import { ResultGroup } from "@/features/dashboard/components/page-results-container/ResultGroup";
 import { AddNewUrlButton } from "@/features/dashboard/components/page-results-container/add-new-url-button/AddNewUrlButton";
 import { getDashboardSession } from "@/features/dashboard/lib/getDashboardSession";
+import { AddNewCollectionButton } from "@/features/dashboard/components/page-results-container/add-new-collection-button/AddNewCollectionButton";
 
 export const PageResultsContainer = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -44,7 +45,10 @@ export const PageResultsContainer = () => {
             <ResultGroup key={collection.id} collection={collection} />
           ))
         )}
-        <AddNewUrlButton successAction={handleRefresh} />
+        <Stack spacing={6} direction="row" justifyContent="center">
+          <AddNewUrlButton successAction={handleRefresh} />
+          <AddNewCollectionButton successAction={handleRefresh} />
+        </Stack>
       </Stack>
     </Box>
   );
