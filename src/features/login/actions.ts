@@ -20,12 +20,12 @@ export async function onSubmitAction(formData: LoginFormValues): Promise<FormSta
   if (formParsed.data.password !== "technik2") {
     return {
       success: false,
-      message: "ERROR SUKO!",
+      message: "Wystąpił błąd!",
     };
   }
 
   return {
     success: true,
-    message: "Success",
+    message: "Sukces",
   };
 }

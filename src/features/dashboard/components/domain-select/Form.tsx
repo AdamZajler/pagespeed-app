@@ -30,7 +30,6 @@ export const Form = ({ successAction }: Props) => {
   });
 
   async function submitForm(data: AddNewDomainFormValues) {
-    // TODO bez sensu
     if (!domain?.id) {
       return;
     }
