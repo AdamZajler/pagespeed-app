@@ -56,7 +56,6 @@ export const Circles = ({ urlId }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("history", history);
   return (
     <Stack direction="row" spacing={3}>
       {isLoading ? (

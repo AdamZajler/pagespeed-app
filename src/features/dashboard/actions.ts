@@ -7,16 +7,6 @@ import { obtainPageSpeedResult } from "@/actions/pagespeed-api/obtainPageSpeedRe
 import { unstable_cache as cache } from "next/cache";
 
 export async function getDomainUrlsByCollection(collectionId: number): Promise<Url[]> {
-  // Sprawdź uprawnienia
-  await getDashboardSession();
-
-  // const domain = await prisma.domain.findFirst({
-  //   where: {
-  //     collectionId,
-  //   },
-  // });
-
-  // TOOD do zafixowania na nigdy (ktoś może podać złą domene z przeglądarki)
   return prisma.url.findMany({
     where: {
       collectionId,

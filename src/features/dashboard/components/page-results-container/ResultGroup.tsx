@@ -26,23 +26,17 @@ export const ResultGroup = ({ collection }: Props) => {
   const [open, setOpen] = useState(true);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [urls, setUrls] = useState<Url[]>([]);
-
   const { domain } = useContext(GlobalContext);
-
   useEffect(() => {
     if (!domain) return;
-
     const getData = async () => {
       const urlsData = await getDomainUrlsByCollection(collection.id);
       setUrls(urlsData);
       setIsLoading(false);
     };
-
     void getData();
-
     // eslint-disable-next-line
   }, [domain]);
-  console.log("urls", urls);
   return (
     <Stack spacing={6}>
       <Stack
@@ -62,7 +56,7 @@ export const ResultGroup = ({ collection }: Props) => {
         {isLoading ? (
           <Skeleton />
         ) : urls.length === 0 ? (
-          `nie ma wyników lol ${collection.id}`
+          `Nie znaleziono żadnych wyników!`
         ) : (
           <List sx={{ p: 0, display: "flex", flexDirection: "column", gap: 4, mx: 3 }}>
             {urls.map((url) => (

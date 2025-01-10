@@ -4,7 +4,6 @@ import { LOGIN_PAGE_URL } from "@/features/login/router";
 
 export default async function Page() {
   const session = await auth();
-  console.log(session);
   return (
     <div>
       <h1>Page dashboard</h1>

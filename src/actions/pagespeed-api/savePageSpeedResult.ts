@@ -30,13 +30,6 @@ export async function savePageSpeedResult({
       .map(([key, value]) => [key, value.percentile]),
   ) as Partial<CoreVitals>;
 
-  console.log("DAAANE!", {
-    performance: data.lighthouseResult.categories.performance.score,
-    accessibility: data.lighthouseResult.categories.accessibility.score,
-    bestPractices: data.lighthouseResult.categories["best-practices"].score,
-    seo: data.lighthouseResult.categories.seo.score,
-  });
-
   await prisma.history.create({
     data: {
       urlId,

@@ -25,7 +25,6 @@ export function Input<TFieldValues extends FieldValues>({
   ...rest
 }: InputProps<TFieldValues>): ReactNode {
   if (required && !rules.required) {
-    console.log("REQUIRED!!");
     rules.required = "To pole jest wymagane";
   }
 

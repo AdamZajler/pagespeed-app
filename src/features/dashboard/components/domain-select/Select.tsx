@@ -1,5 +1,4 @@
 "use client";
-// TODO usuń logowanie, rejestracje, dodaj filtry dla results
 import { MenuItem, Select as MuiSelect, Skeleton } from "@mui/material";
 import type { Domain } from "@prisma/client";
 import { useContext, useEffect } from "react";
@@ -28,9 +27,7 @@ export const Select = ({ domains }: Props) => {
       setDomain(domains[0]);
       saveDomainToLocalStorage({ domain: domains[0].name });
     } else if (savedDomain) {
-      console.log("if");
       const find = domains.find((d) => d.name === savedDomain);
-      console.log("ifv2", find, savedDomain);
       if (!find) {
         return;
       }
@@ -40,8 +37,6 @@ export const Select = ({ domains }: Props) => {
     }
     // eslint-disable-next-line
   }, []);
-
-  console.log("dupa", domain);
 
   return domains.length === 0 || !domain?.name ? (
     <Skeleton width={100} height={56} variant="rounded" />

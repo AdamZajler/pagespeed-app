@@ -28,8 +28,6 @@ export const Form = ({ successAction }: Props) => {
   });
 
   async function submitForm(data: AddNewAddressFormValues) {
-    console.log("XDD: ", data, domain);
-    // TODO bez sensu
     if (!domain?.id) {
       return;
     }

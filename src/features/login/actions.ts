@@ -17,9 +17,7 @@ export async function onSubmitAction(formData: LoginFormValues): Promise<FormSta
     });
   }
 
-  // TODO wywalić potem
   if (formParsed.data.password !== "technik2") {
-    console.log("ERROR!");
     return {
       success: false,
       message: "ERROR SUKO!",

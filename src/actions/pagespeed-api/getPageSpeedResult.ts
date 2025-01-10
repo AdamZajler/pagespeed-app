@@ -27,7 +27,7 @@ export async function getPageSpeedResult({ url }: GetPageSpeedResultProps): Prom
   }
 
   const URL = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${url}&category=ACCESSIBILITY&category=BEST_PRACTICES&category=PERFORMANCE&category=SEO&key=${settings.apiKey}`;
-  console.log("XDDD: ", URL);
+
   const res = (await fetch(URL)
     .then((r) => r.json())
     .catch((e) => console.error(`Error for ${URL}`, e))) as PageSpeedResult;
